@@ -4,7 +4,7 @@ title: '#4471 · three problems, not one'
 owner: Netstero
 status: open
 reviewed: 2026-10-29
-signature: Netstero
+signature: 'v1.eyJzdWIiOiIzMDA0IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyNzMwODgsImV4cCI6MTc5MzM1OTQ4OH0.hGE2ppJ2PRkiWqz2iNamL3_SfHkLnt1SktYXzl1C_pA'
 ---
 
 <script>
