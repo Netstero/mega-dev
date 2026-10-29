@@ -1,0 +1,53 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: Netstero
+status: open
+reviewed: 2026-10-29
+signature: Netstero
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const tickets = {
+    parser: 'https://github.com/Netstero/mega-dev/issues/1',
+    hint: 'https://github.com/Netstero/mega-dev/issues/2',
+    shift: 'https://github.com/Netstero/mega-dev/issues/3',
+  };
+</script>
+
+[#4471](/kb/incidents/4471) was merged as one issue, on subject lines alone
+([decision 0001](/kb/decisions/0001-dedupe-by-subject)). Read by tenant, form and body, the
+reports hold three problems. Each one now has its own ticket.
+
+<Callout kind="warn">
+The parser fix queued for #4471 fixes only the first row. The other two stay broken after it ships.
+</Callout>
+
+## What #4471 holds
+
+<ProblemTable ticket={4471} {tickets} />
+
+- **`parser`**: the shared parser reads every date month first. Our tenants write the day first,
+  so day and month swap: 7 May lands on 5 July.
+- **`hint`**: the booking-v3 form prints `MM/DD/YYYY` under its date field. People type what the
+  hint says, and the form reads it day first. Fixing the parser does not touch this; the hint must change.
+- **`shift`**: the date moves by one day, not a swap. The same meeting shows Tuesday in Lisbon and
+  Monday in Toronto. A time zone bug. The desk already listed these reports as one-day moves in
+  `desk-notes.json`; the old table still counts them under `parser`.
+
+## How the reports were counted
+
+- The ticket export repeats some rows across its pages; each report id counts once.
+- A report is placed by its tenant and the way it came in, not by its intake tag. Intake tags
+  `hint` on every report from a US-English browser, which says nothing about the cause.
+
+## Lessons
+
+- Same subject is not same problem. Read a sample of bodies before calling a big ticket known.
+- Count by cause, and file one ticket per cause.
+
+<RenderStamp {signature} />
